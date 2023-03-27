@@ -1,4 +1,4 @@
-# CIRCO
+# CIRCO Dataset
 
 This is the **official repository** of the **C**omposed **I**mage **R**etrieval on **C**ommon **O**bjects in context (CIRCO) dataset.
 
