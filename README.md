@@ -1,8 +1,11 @@
 # CIRCO Dataset
 
+[![arXiv](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](https://arxiv.org/abs/2303.15247)
+[![GitHub Stars](https://img.shields.io/github/stars/miccunifi/CIRCO?style=social)](https://github.com/miccunifi/CIRCO)
+
 This is the **official repository** of the **C**omposed **I**mage **R**etrieval on **C**ommon **O**bjects in context (CIRCO) dataset.
 
-For more details please see our [**paper**](https://github.com/miccunifi/CIRCO) "*Zero-shot Composed Image Retrieval With Textual Inversion*".
+For more details please see our [**paper**](https://arxiv.org/abs/2303.15247) "*Zero-shot Composed Image Retrieval With Textual Inversion*".
 
 >You are currently viewing the dataset repository. If you are looking for more information about our method SEARLE see the [repository](https://github.com/miccunifi/SEARLE).
 
@@ -25,6 +28,19 @@ For more details please see our [**paper**](https://github.com/miccunifi/CIRCO) 
 * [**Alberto Del Bimbo**](https://scholar.google.com/citations?user=bf2ZrFcAAAAJ&hl=en)
 
 **\*** Equal contribution. Author ordering was determined by coin flip.
+
+## Citation
+```bibtex
+@misc{baldrati2023zeroshot,
+      title={Zero-Shot Composed Image Retrieval with Textual Inversion}, 
+      author={Alberto Baldrati and Lorenzo Agnolucci and Marco Bertini and Alberto Del Bimbo},
+      year={2023},
+      eprint={2303.15247},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+```
+
 
 ## Acknowledgements
 This work was partially supported by the European Commission under European Horizon 2020 Programme, grant number 101004545 - ReInHerit.
