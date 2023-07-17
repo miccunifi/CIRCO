@@ -1,4 +1,4 @@
-# CIRCO Dataset
+# CIRCO Dataset (ICCV 2023)
 
 [![arXiv](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](https://arxiv.org/abs/2303.15247)
 [![Generic badge](https://img.shields.io/badge/Evaluation_Server-Link-blue.svg)](https://circo.micc.unifi.it/)
