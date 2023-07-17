@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import Union, List, Dict
+from typing import Union, List, Dict, Literal
 
 import PIL
 import PIL.Image
@@ -14,7 +14,8 @@ class CIRCODataset(Dataset):
     CIRCO dataset
     """
 
-    def __init__(self, data_path: Union[str, Path], split: str, mode: str, preprocess: callable):
+    def __init__(self, data_path: Union[str, Path], split: Literal['val', 'test'],
+                 mode: Literal['relative', 'classic'], preprocess: callable):
         """
         Args:
             data_path (Union[str, Path]): path to CIRCO dataset
@@ -33,7 +34,7 @@ class CIRCODataset(Dataset):
         # Ensure input arguments are valid
         if mode not in ['relative', 'classic']:
             raise ValueError("mode should be in ['relative', 'classic']")
-        if split not in ['test', 'val', 'test_gt']:
+        if split not in ['test', 'val']:
             raise ValueError("split should be in ['test', 'val']")
 
         # Load COCO images information
@@ -43,7 +44,7 @@ class CIRCODataset(Dataset):
         self.img_paths = [data_path / 'COCO2017_unlabeled' / "unlabeled2017" / img_info["file_name"] for img_info in
                           imgs_info["images"]]
         self.img_ids = [img_info["id"] for img_info in imgs_info["images"]]
-        self.img_ids_indexes_map = {img_id: i for i, img_id in enumerate(self.img_ids)}
+        self.img_ids_indexes_map = {str(img_id): i for i, img_id in enumerate(self.img_ids)}
 
         # get CIRCO annotations
         with open(data_path / 'annotations' / f'{split}.json', "r") as f:
@@ -76,30 +77,33 @@ class CIRCODataset(Dataset):
 
         In 'classic' mode, the dataset yields a dictionary with the following keys: [img, img_id]
         In 'relative' mode, the dataset yields dictionaries with the following keys:
-            - [reference_img, reference_img_id, target_img, target_img_id, relative_caption, shared_concept, gt_img_ids]
-            if split == val
-            - [reference_img, reference_img_id, relative_caption, shared_concept]  if split == test
+            - [reference_img, reference_img_id, target_img, target_img_id, relative_caption, shared_concept, gt_img_ids,
+            query_id] if split == val
+            - [reference_img, reference_img_id, relative_caption, shared_concept, query_id]  if split == test
         """
 
         if self.mode == 'relative':
+            # Get the query id
+            query_id = str(self.annotations[index]['id'])
+
             # Get relative caption and shared concept
             relative_caption = self.annotations[index]['relative_caption']
             shared_concept = self.annotations[index]['shared_concept']
 
             # Get the reference image
-            reference_img_id = self.annotations[index]['reference_img_id']
+            reference_img_id = str(self.annotations[index]['reference_img_id'])
             reference_img_path = self.img_paths[self.img_ids_indexes_map[reference_img_id]]
             reference_img = self.preprocess(PIL.Image.open(reference_img_path))
 
             if self.split == 'val':
                 # Get the target image and ground truth images
-                target_img_id = self.annotations[index]['target_img_id']
-                gt_img_ids = self.annotations[index]['gt_img_ids']
+                target_img_id = str(self.annotations[index]['target_img_id'])
+                gt_img_ids = [str(x) for x in self.annotations[index]['gt_img_ids']]
                 target_img_path = self.img_paths[self.img_ids_indexes_map[target_img_id]]
                 target_img = self.preprocess(PIL.Image.open(target_img_path))
 
                 # Pad ground truth image IDs with zeros for collate_fn
-                gt_img_ids += [0] * (self.max_num_gts - len(gt_img_ids))
+                gt_img_ids += [''] * (self.max_num_gts - len(gt_img_ids))
 
                 return {
                     'reference_img': reference_img,
@@ -108,7 +112,8 @@ class CIRCODataset(Dataset):
                     'target_img_id': target_img_id,
                     'relative_caption': relative_caption,
                     'shared_concept': shared_concept,
-                    'gt_img_ids': gt_img_ids
+                    'gt_img_ids': gt_img_ids,
+                    'query_id': query_id,
                 }
 
             elif self.split == 'test':
@@ -117,11 +122,12 @@ class CIRCODataset(Dataset):
                     'reference_imd_id': reference_img_id,
                     'relative_caption': relative_caption,
                     'shared_concept': shared_concept,
+                    'query_id': query_id,
                 }
 
         elif self.mode == 'classic':
             # Get image ID and image path
-            img_id = self.img_ids[index]
+            img_id = str(self.img_ids[index])
             img_path = self.img_paths[index]
 
             # Preprocess image and return
