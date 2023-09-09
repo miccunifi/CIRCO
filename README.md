@@ -2,7 +2,10 @@
 
 [![arXiv](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](https://arxiv.org/abs/2303.15247)
 [![Generic badge](https://img.shields.io/badge/Evaluation_Server-Link-blue.svg)](https://circo.micc.unifi.it/)
+[![Generic badge](https://img.shields.io/badge/Demo-Link-red.svg)](https://circo.micc.unifi.it/demo)
 [![GitHub Stars](https://img.shields.io/github/stars/miccunifi/CIRCO?style=social)](https://github.com/miccunifi/CIRCO)
+
+🔥🔥 **[09/09/2023] Release of a [demo](https://circo.micc.unifi.it/demo) powered by [SEARLE](https://github.com/miccunifi/SEARLE) for exploring the dataset**
 
 
 This is the **official repository** of the **C**omposed **I**mage **R**etrieval on **C**ommon **O**bjects in context (CIRCO) dataset.
