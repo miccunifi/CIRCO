@@ -47,7 +47,7 @@ git clone https://github.com/miccunifi/CIRCO.git
 
 ### Annotations
 The annotations are provided in the `annotations` folder. For each split, a JSON file contains the list of the
-corresponding annotations. Each annotation comprise the following fields:
+corresponding annotations. Each annotation comprises the following fields:
 * `reference_img_id`: the id of the reference image;
 * `target_img_id`: the id of the target image (the one we used to write the relative caption);
 * `relative_caption`: the relative caption of the target image;
@@ -86,7 +86,7 @@ CIRCO is based on images taken from the [COCO 2017 unlabeled set](https://cocoda
 Please see the [COCO website](https://cocodataset.org/#download) to download both the images and the corresponding annotations.
 
 **Tip**: sometimes when clicking on the download link from the COCO website, the download does not start. In this case,
-copy the download link and paste it in a new browser tab.
+copy the download link and paste it into a new browser tab.
 
 Create a folder named `COCO2017_unlabeled` in the `CIRCO` folder:
 ```bash
@@ -101,7 +101,7 @@ After the download, the data structure should be as follows:
 CIRCO
 └─── annotations
         | test.json
-        | train.json
+        | val.json
 
 └─── COCO2017_unlabeled
     └─── annotations
