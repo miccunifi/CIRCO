@@ -168,13 +168,14 @@ The submission file should be formatted as the following example:
 
 Under the ```submission_examples/``` directory, we provide two examples of submission files: one for the validation set and one for the test set.
 Since we release the GT labels for the validation set, you do not need to submit a submission file to evaluate your model on the validation set.
-We provide the submission file for the validation set only to test the evaluation server code through the ```evaluation.py``` script.
+We provide the submission file for the validation set only to test the evaluation server code through the ```evaluation.py``` script. See 
+[here](https://github.com/miccunifi/SEARLE/blob/main/src/generate_test_submission.py) for an example of how to generate a submission file.
 
 
 ## Utility Scripts
 Under the ```src/``` directory, we provide some utility scripts to help you in the usage of the dataset:
 * ```dataset.py```: contains the ```CIRCODataset``` class, which is a PyTorch Dataset class that can be used to load the dataset;
-* ```evaluation.py```: contains the code which is running on the server to evaluate the submitted predictions.
+* ```evaluation.py```: contains the code that is running on the server to evaluate the submitted predictions.
 
 ## Authors
 * [**Alberto Baldrati**](https://scholar.google.com/citations?hl=en&user=I1jaZecAAAAJ)**\***
