@@ -55,13 +55,14 @@ corresponding annotations. Each annotation comprises the following fields:
 * `shared_concept`: the shared concept between the reference and target images (useful to clarify ambiguities);
 * `gt_img_ids`: the list of ground truth images;
 * `id`: the id of the query.
+* `semantic_aspects`: the list of semantic aspects that characterize the query.
 
 
 <details>
 <summary>Click to see an annotation example</summary>
 
 ```json
- {
+{
     "reference_img_id": 85932,
     "target_img_id": 9761,
     "relative_caption": "is held by a little girl on a chair",
@@ -73,13 +74,17 @@ corresponding annotations. Each annotation comprises the following fields:
         375057,
         119881
     ],
-    "id": 0
+    "id": 13,
+    "semantic_aspects": [
+        "spatial_relations_background",
+        "direct_addressing"
+    ]
 }
 ```
 </details>
 
 Note that:
-* `target_img_id` and `gt_img_ids` are not available for the test set.
+* `target_img_id`, `gt_img_ids` and `semantic_aspects` are not available for the test set.
 * `target_img_id` always corresponds to the first element of `gt_img_ids`.
 
 ### Images

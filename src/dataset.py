@@ -14,8 +14,8 @@ class CIRCODataset(Dataset):
     CIRCO dataset
     """
 
-    def __init__(self, data_path: Union[str, Path], split: Literal['val', 'test'],
-                 mode: Literal['relative', 'classic'], preprocess: callable):
+    def __init__(self, data_path: Union[str, Path], split: Literal['val', 'test'], mode: Literal['relative', 'classic'],
+                 preprocess: callable):
         """
         Args:
             data_path (Union[str, Path]): path to CIRCO dataset
@@ -70,6 +70,10 @@ class CIRCODataset(Dataset):
             'target_img_id': self.annotations[index]['target_img_id'],
             'gt_img_ids': self.annotations[index]['gt_img_ids']
         }
+
+    def get_semantic_aspects(self, index):
+        """ Returns the semantic aspects for a given query"""
+        return self.annotations[index].get('semantic_aspects', [])
 
     def __getitem__(self, index) -> dict:
         """
@@ -160,7 +164,7 @@ if __name__ == '__main__':
         transforms.ToTensor(),
     ])
     base_path = Path(__file__).absolute().parents[1].absolute()  # Getting the path to the base directory
-    dataset = CIRCODataset(data_path=base_path, split='test', mode='relative', preprocess=transform)
+    dataset = CIRCODataset(data_path=base_path, split='val', mode='relative', preprocess=transform)
     loader = torch.utils.data.DataLoader(dataset, batch_size=4, shuffle=True, num_workers=0)
     for batch in loader:
         for key, value in batch.items():

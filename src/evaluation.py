@@ -12,7 +12,7 @@ base_path = Path(__file__).absolute().parents[1].absolute()  # Getting the path 
 
 
 def compute_metrics(data_path: Path, predictions_dict: Dict[int, List[int]], ranks: List[int]) -> Tuple[
-    Dict[int, float], Dict[int, float]]:
+    Dict[int, float], Dict[int, float], Dict[str, float]]:
     """Computes the Average Precision (AP) and Recall for a given set of predictions.
 
     Args:
@@ -21,18 +21,25 @@ def compute_metrics(data_path: Path, predictions_dict: Dict[int, List[int]], ran
         ranks (List[int]): Ranks to consider in the evaluation (e.g., [5, 10, 20])
 
     Returns:
-        Tuple[Dict[int, float], Dict[int, float]]: Dictionaries with the AP and Recall for each rank
+        Tuple[Dict[int, float], Dict[int, float], Dict[str, float]]: Dictionaries with the AP and Recall for each rank,
+            and the semantic mAP@10 for each semantic aspect
     """
 
     relative_val_dataset = CIRCODataset(data_path, split='val', mode='relative', preprocess=None)
 
+    semantic_aspects_list = ['cardinality', 'addition', 'negation', 'direct_addressing', 'compare_change',
+                              'comparative_statement', 'statement_with_conjunction', 'spatial_relations_background',
+                              'viewpoint']
+
     # Initialize empty dictionaries to store the AP and Recall values for each rank
     aps_atk = defaultdict(list)
     recalls_atk = defaultdict(list)
+    semantic_aps_at10 = defaultdict(list)
 
     # Iterate through each query id and its corresponding predictions
     for query_id, predictions in predictions_dict.items():
         target = relative_val_dataset.get_target_img_ids(int(query_id))
+        semantic_aspects = relative_val_dataset.get_semantic_aspects(int(query_id))
         gt_img_ids = target['gt_img_ids']
         target_img_id = target['target_img_id']
 
@@ -51,13 +58,23 @@ def compute_metrics(data_path: Path, predictions_dict: Dict[int, List[int]], ran
         for rank in ranks:
             recalls_atk[rank].append(float(np.sum(recall_labels[:rank])))
 
+        # Compute the AP@10 for each semantic aspect
+        for aspect in semantic_aspects:
+            semantic_aps_at10[aspect].append(float(np.sum(precisions[:10]) / min(len(gt_img_ids), 10)))
+
     # Compute the mean AP and Recall for each rank and store them in a dictionary
-    ap_atk = {}
+    map_atk = {}
     recall_atk = {}
+    semantic_map_at10 = {}
     for rank in ranks:
-        ap_atk[rank] = float(np.mean(aps_atk[rank]))
+        map_atk[rank] = float(np.mean(aps_atk[rank]))
         recall_atk[rank] = float(np.mean(recalls_atk[rank]))
-    return ap_atk, recall_atk
+
+    # Compute the mean AP@10 for each semantic aspect and store them in a dictionary
+    for aspect in semantic_aspects_list:
+        semantic_map_at10[aspect] = float(np.mean(semantic_aps_at10[aspect]))
+
+    return map_atk, recall_atk, semantic_map_at10
 
 
 def main():
@@ -81,7 +98,7 @@ def main():
         len(predictions_dict.keys()))), "The keys of the predictions dictionary must be all the query ids"
 
     # Compute the metrics and print them
-    ap_atk, recall_atk = compute_metrics(args.data_path, predictions_dict, args.ranks)
+    map_atk, recall_atk, semantic_map_at10 = compute_metrics(args.data_path, predictions_dict, args.ranks)
 
     print("\nWe remind that the mAP@k metrics are computed considering all the ground truth images for each query, the "
           "Recall@k metrics are computed considering only the target image for each query (the one we used to write "
@@ -89,10 +106,15 @@ def main():
 
     print("\nmAP@k metrics")
     for rank in args.ranks:
-        print(f"mAP@{rank}: {ap_atk[rank] * 100:.2f}")
+        print(f"mAP@{rank}: {map_atk[rank] * 100:.2f}")
+
     print("\nRecall@k metrics")
     for rank in args.ranks:
         print(f"Recall@{rank}: {recall_atk[rank] * 100:.2f}")
+
+    print("\nSemantic mAP@10 metrics")
+    for aspect, map_at10 in semantic_map_at10.items():
+        print(f"Semantic mAP@10 for aspect '{aspect}': {map_at10 * 100:.2f}")
 
 
 if __name__ == '__main__':
