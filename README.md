@@ -1,16 +1,17 @@
 # CIRCO Dataset (ICCV 2023)
 
-[![arXiv](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](https://arxiv.org/abs/2303.15247)
+[![arXiv](https://img.shields.io/badge/ICCV2023-Paper-<COLOR>.svg)](https://arxiv.org/abs/2303.15247)
 [![Generic badge](https://img.shields.io/badge/Evaluation_Server-Link-blue.svg)](https://circo.micc.unifi.it/)
 [![Generic badge](https://img.shields.io/badge/Demo-Link-red.svg)](https://circo.micc.unifi.it/demo)
 [![GitHub Stars](https://img.shields.io/github/stars/miccunifi/CIRCO?style=social)](https://github.com/miccunifi/CIRCO)
 
-🔥🔥 **[09/09/2023] Release of a [demo](https://circo.micc.unifi.it/demo) powered by [SEARLE](https://github.com/miccunifi/SEARLE) for exploring the dataset**
+🔥🔥 **[2024/05/07] Following the [extended version](https://arxiv.org/abs/2405.02951) of our paper, from now the evaluation server also provides the results divided by semantic category**
 
 
 This is the **official repository** of the **C**omposed **I**mage **R**etrieval on **C**ommon **O**bjects in context (CIRCO) dataset.
 
-For more details please see our [**paper**](https://arxiv.org/abs/2303.15247) "*Zero-shot Composed Image Retrieval With Textual Inversion*".
+For more details please see our [**ICCV 2023 paper**](https://arxiv.org/abs/2303.15247) "*Zero-Shot Composed
+Image Retrieval with Textual Inversion*" and its [**extended version**](https://arxiv.org/abs/2405.02951) "*iSEARLE: Improving Textual Inversion for Zero-Shot Composed Image Retrieval*".
 
 >You are currently viewing the dataset repository. If you are looking for more information about our method SEARLE see the [repository](https://github.com/miccunifi/SEARLE).
 
