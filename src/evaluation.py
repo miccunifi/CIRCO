@@ -43,6 +43,11 @@ def compute_metrics(data_path: Path, predictions_dict: Dict[int, List[int]], ran
         gt_img_ids = target['gt_img_ids']
         target_img_id = target['target_img_id']
 
+        # Check if the predictions are unique
+        if len(set(predictions)) != len(predictions):
+            raise ValueError(f"Query {query_id} has duplicate predictions. Please ensure to provide unique predictions"
+                             f"for each query.")
+
         # gt_img_ids = np.trim_zeros(gt_img_ids)  # remove trailing zeros added for collate_fn (when using dataloader)
 
         predictions = np.array(predictions, dtype=int)
