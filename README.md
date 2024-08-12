@@ -5,8 +5,10 @@
 [![Generic badge](https://img.shields.io/badge/Demo-Link-red.svg)](https://circo.micc.unifi.it/demo)
 [![GitHub Stars](https://img.shields.io/github/stars/miccunifi/CIRCO?style=social)](https://github.com/miccunifi/CIRCO)
 
-🔥🔥 **[2024/05/07] Following the [extended version](https://arxiv.org/abs/2405.02951) of our paper, from now the evaluation server also provides the results divided by semantic category**
+🚨🚨🚨 **Important Notice:** The evaluation server is currently **down** due to connection issues with our lab's servers. If you urgently need to validate your predictions (e.g., for the AAAI deadline) or need more information, please visit [this issue](https://github.com/miccunifi/CIRCO/issues/3).
 
+ 
+<!---🔥🔥 **[2024/05/07] Following the [extended version](https://arxiv.org/abs/2405.02951) of our paper, from now the evaluation server also provides the results divided by semantic category**-->
 
 This is the **official repository** of the **C**omposed **I**mage **R**etrieval on **C**ommon **O**bjects in context (CIRCO) dataset.
 
