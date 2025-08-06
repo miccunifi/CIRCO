@@ -2,10 +2,12 @@
 
 [![arXiv](https://img.shields.io/badge/ICCV2023-Paper-<COLOR>.svg)](https://arxiv.org/abs/2303.15247)
 [![Generic badge](https://img.shields.io/badge/Evaluation_Server-Link-blue.svg)](https://circo.micc.unifi.it/)
+[![Generic badge](https://img.shields.io/badge/Alternative_Server-Link-purple.svg)](https://www.codabench.org/competitions/10055/)
 [![Generic badge](https://img.shields.io/badge/Demo-Link-red.svg)](https://circo.micc.unifi.it/demo)
 [![GitHub Stars](https://img.shields.io/github/stars/miccunifi/CIRCO?style=social)](https://github.com/miccunifi/CIRCO)
 
- 
+
+🔥🔥 **[2024/08/06] We’ve set up an [alternative evaluation server](https://www.codabench.org/competitions/10055/) hosted on Codabench** <br />
 🔥🔥 **[2024/05/07] Following the [extended version](https://arxiv.org/abs/2405.02951) of our paper, from now the evaluation server also provides the results divided by semantic category**
 
 This is the **official repository** of the **C**omposed **I**mage **R**etrieval on **C**ommon **O**bjects in context (CIRCO) dataset.
@@ -126,6 +128,8 @@ to allow researchers to evaluate their models on the test split. The server is h
 if the site is unreachable.
 
 Once you have submitted your predictions, you will receive an email with the results.
+
+We also provide an [alternative evaluation server](https://www.codabench.org/competitions/10055/) hosted on Codabench. The submission format is identical to that of the primary server, except that the prediction file must be compressed into a ZIP archive.
 
 ### Submission Format
 The evaluation server accepts a JSON file where the keys are the query ids and the values are the lists of the top 50
